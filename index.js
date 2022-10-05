@@ -13,7 +13,7 @@ class Inventario {
   }
 
   agregarProducto(producto) {
-    this._productos.push(producto);
+    this._productos[this._productos = producto];
   }
 
   buscarProducto(codigoProducto) {
@@ -24,21 +24,37 @@ class Inventario {
         return element;
       }
     }
-    return undefined;
+    return null;
   }
 
   eliminarProducto(codigoProducto) {
-    if (this._productos.length == 0) return;
-    for (let i = 0; i < this._productos.length; i++) {
-      const element = this._productos[i];
-      if (element?.codigo == codigoProducto) {
-        this._productos[i] = null;
-        for (let j = i; j < this._productos.length; j++) {
-          this._productos[j] = this._productos[j + 1];
-        }
-        this._productos.length -= 1;
+    if(this.getIndex(codigoProducto) !== this._productos.length + 1) {
+      for (let i = this.getIndex(codigoProducto); i < this._productos.length - 1; i++) {
+        this._productos[i] = this._productos[i+1];
       }
+      this._productos.pop(this._productos.length);
     }
+    return this._productos
+
+    // if (this._productos.length == 0) return;
+    // for (let i = 0; i < this._productos.length; i++) {
+    //   const element = this._productos[i];
+    //   if (element?.codigo == codigoProducto) {
+    //     this._productos[i] = null;
+    //     for (let j = i; j < this._productos.length; j++) {
+    //       this._productos[j] = this._productos[j + 1];
+    //     }
+    //     this._productos.length -= 1;
+    //   }
+    // }
+  }
+
+  getIndex(codigo){
+    for (let i = 0; i < this._productos.length; i++) {
+    if (codigo === this.producto[i.codigo])
+    return i;
+    }
+    return this._productos.length + 1;
   }
 
   listado() {
